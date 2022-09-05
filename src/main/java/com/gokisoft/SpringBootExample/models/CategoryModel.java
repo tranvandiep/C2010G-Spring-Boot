@@ -4,6 +4,7 @@
  */
 package com.gokisoft.SpringBootExample.models;
 
+import com.gokisoft.SpringBootExample.entities.Category;
 import java.io.Serializable;
 
 /**
@@ -20,6 +21,11 @@ public class CategoryModel implements Serializable{
     public CategoryModel(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+    
+    public void setModel(Category cat) {
+        this.id = cat.getId();
+        this.name = cat.getName();
     }
 
     public int getId() {

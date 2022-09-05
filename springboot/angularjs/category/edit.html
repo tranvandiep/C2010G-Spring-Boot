@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Edit Category - Page</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script type="text/javascript" src="../../config.js?v=2"></script>
+</head>
+<body ng-controller="MyController">
+	<div class="container">
+		<form method="post" ng-submit="save()">
+			<div class="form-group">
+				<label>Name: </label>
+				<input required type="text" name="id" class="form-control" ng-model="id" hidden>
+				<input required type="text" name="name" class="form-control" ng-model="name">
+			</div>
+			<div class="form-group mt-3">
+				<button class="btn btn-warning">Save</button> <a href="index.html">Back to list</a>
+			</div>
+		</form>
+	</div>
+
+<script type="text/javascript">
+	var app = angular.module('MyApp', [])
+	app.controller('MyController', function ($scope, $http) {
+		$scope.name = ""
+		$scope.id = getParameterByName('id')
+
+		$http.get(API_CATEGORY_FIND + $scope.id)
+		  .then(function(response) {
+		    $scope.name = response.data.name;
+		  });
+
+		$scope.save = function() {
+			var data = {
+				'id': $scope.id,
+				'name': $scope.name
+			};
+
+			$http.post(API_CATEGORY_EDIT, JSON.stringify(data))
+			.then(function(response) {
+			    if(response.data.status != 1) {
+			    	alert(response.data.message)
+			    } else {
+			    	window.open('index.html', '_self')
+			    }
+			});
+		}
+	})
+</script>
+</body>
+</html>

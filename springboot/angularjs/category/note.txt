@@ -1,0 +1,10 @@
+Quản lý danh mục:
+	API: /api/category
+		- /list: DONE
+		- /add
+		- /update
+		- /delete
+			- @post
+			- /delete/1
+			- /delete/2
+		- /find/1 | /find/2 ...
